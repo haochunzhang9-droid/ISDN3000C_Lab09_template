@@ -10,17 +10,26 @@ The setup is orchestrated with **Docker Compose**, which manages multiple servic
 Static files (CSS, JavaScript, images) are served directly by Nginx for efficiency.
 
 ---
-
-## 📂 Project Structure
-```
 ISDN3000C_Lab09_template/
-├── FlaskApp/           # Flask application code (app.py, init_db.py, etc.)
-├── static/             # Static files (CSS, JS, images)
-├── requirements.txt    # Python dependencies
-├── Dockerfile          # Flask app Docker image definition
-├── default.conf        # Nginx configuration file
-└── docker-compose.yml  # Docker Compose setup
-```
+├── .gitignore            # Ignore rules (exclude venv, cache, etc.)
+├── Dockerfile            # Build instructions for Flask app container
+├── docker-compose.yml    # Multi-container orchestration (Flask + Nginx)
+├── questions.md          # Answers to lab questions
+├── readme.md             # Project documentation
+├── requirements.txt      # Python dependencies
+├── default.conf          # Nginx site configuration
+├── nginx/
+│   └── nginx.conf        # Main Nginx configuration file
+└── FlaskApp/
+    ├── app.py            # Flask application entry point
+    ├── init_db.py        # Database initialization script
+    ├── schema.sql        # SQL schema for database setup
+    ├── database.db       # SQLite database file
+    ├── guestbook.db      # Guestbook database file
+    └── templates/
+        └── index.html    # HTML template for the web interface
+
+
 
 ---
 
