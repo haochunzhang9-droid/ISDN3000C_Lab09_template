@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Guestbook</title>
+  </head>
+  <body>
+    <h1>Welcome to the Guestbook!</h1>
+
+    <!--  -->
+    <hr>
+    <form id="msg-form">
+      <label for="name">Name:</label><br>
+      <input type="text" name="name" placeholder="Your name" required><br><br>
+
+      <label for="message">Message:</label><br>
+      <textarea name="message" placeholder="Your message" rows="3" cols="40" required></textarea><br><br>
+
+      <button type="submit">Post Message</button>
+    </form>
+    <hr>
+
+    <h2>Current Entries:</h2>
+    <div id="entries">
+      {% for message in messages %}
+        <p>
+          <strong>{{ message['name'] }}</strong>
+          <small>({{ message['created_at'] }})</small>:<br>
+          {{ message['message'] }}
+        </p>
+      {% else %}
+        <p>No messages yet! Be the first.</p>
+      {% endfor %}
+    </div>
+
+    <!-- AJAX  -->
+    <script>
+      const form = document.querySelector('#msg-form');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const name = formData.get('name');
+        const message = formData.get('message');
+
+        try {
+          const response = await fetch('/api/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, message })
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            alert('Message posted successfully!');
+
+            
+            form.querySelector('input[name="name"]').value = '';
+            form.querySelector('textarea[name="message"]').value = '';
+
+            
+            const entries = document.querySelector('#entries');
+            const newEntry = document.createElement('p');
+            const now = new Date().toLocaleString();
+            newEntry.innerHTML = `<strong>${name}</strong> <small>(${now})</small>:<br>${message}`;
+            entries.prepend(newEntry);
+          } else {
+            alert('Error: ' + result.message);
+          }
+        } catch (error) {
+          console.error('Submission failed:', error);
+          alert('An error occurred. Please try again.');
+        }
+      });
+    </script>
+  </body>
+</html>
