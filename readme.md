@@ -1,15 +1,18 @@
-Here’s a complete **English README.md** you can use for your project:
+Here’s a **complete English README.md** tailored for your project setup. It includes overview, structure, setup instructions, configuration, and troubleshooting so that tutors/graders can easily understand and run your work:
 
 ---
 
 # Flask + Nginx + Docker Compose Project
 
-## 📖 Overview
+## Overview
 This project demonstrates how to deploy a simple **Flask** web application using **Gunicorn** inside a Docker container, with **Nginx** acting as a reverse proxy for production-level performance.  
 The setup is orchestrated with **Docker Compose**, which manages multiple services (Flask app container + Nginx container) and ensures smooth networking between them.  
 Static files (CSS, JavaScript, images) are served directly by Nginx for efficiency.
 
 ---
+
+## Project Structure
+```
 ISDN3000C_Lab09_template/
 ├── .gitignore            # Ignore rules (exclude venv, cache, etc.)
 ├── Dockerfile            # Build instructions for Flask app container
@@ -28,19 +31,18 @@ ISDN3000C_Lab09_template/
     ├── guestbook.db      # Guestbook database file
     └── templates/
         └── index.html    # HTML template for the web interface
-
-
+```
 
 ---
 
-## ⚙️ Requirements
+## Requirements
 - Docker (>= 20.x)
 - Docker Compose (>= v2.x)
 - Python 3.11 (optional, for local development)
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### 1. Build and start containers
 ```bash
@@ -59,7 +61,7 @@ docker-compose up --build
 
 ---
 
-## 📝 Nginx Configuration
+## Nginx Configuration
 Example `default.conf`:
 ```nginx
 server {
@@ -83,7 +85,7 @@ server {
 
 ---
 
-## 🔧 Common Issues
+## Common Issues
 
 - **Port conflict**  
   If `8080` is already in use, change the port mapping in `docker-compose.yml`:
@@ -99,13 +101,18 @@ server {
   - ./default.conf:/etc/nginx/conf.d/default.conf
   ```
 
+- **Do not commit virtual environments**  
+  Make sure `.gitignore` excludes `venv/` or `FlaskVenv/` directories.
+
 ---
 
-## ✅ Summary
+## Summary
 This project illustrates a production-ready deployment workflow:
 - Flask app container runs application logic with Gunicorn.  
 - Nginx container acts as reverse proxy and static file server.  
 - Docker Compose manages multi-container orchestration.  
+
+---
 
 SHEN Yuming 20945165
 
